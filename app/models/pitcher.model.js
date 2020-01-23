@@ -27,6 +27,26 @@ Pitcher.findById = (pitcherId, result) => {
     });
 };
 
+Pitcher.getSessionsById = (pitcherId, result) => {
+  sql.query(`SELECT * FROM session s where s.Pitcher__id = ${pitcherId} ORDER BY s.date DESC`, (err, res) => {
+    if(err) {
+      console.log('error', err);
+      result(err, null);
+      return;
+  }
+
+  if(res.length) {
+      console.log('found session: ', res);
+      result(null, res);
+      return;
+  }
+
+  //not found
+  result({kind: 'not_found'}, null);
+});
+  
+};
+
 Pitcher.getAll = result => {
     sql.query("SELECT * FROM pitcher", (err, res) => {
       if (err) {

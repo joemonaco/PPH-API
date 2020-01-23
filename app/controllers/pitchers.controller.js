@@ -29,3 +29,19 @@ exports.findOne = (req, res) => {
       });
 };
 
+exports.findSessionsById = (req, res) => {
+    Pitcher.getSessionsById(req.params.pitcherId, (err, data) => {
+        if (err) {
+          if (err.kind === "not_found") {
+            res.status(404).send({
+              message: `Not found Session with PitcherId ${req.params.pitcherId}.`
+            });
+          } else {
+            res.status(500).send({
+              message: "Error retrieving Session with PitcherId " + req.params.pitcherId
+            });
+          }
+        } else res.send(data);
+      });
+};
+

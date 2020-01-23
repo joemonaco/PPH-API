@@ -6,4 +6,7 @@ module.exports = app => {
 
     //Retreive a single Pitcher with pitcherID
     app.get('/pitchers/:pitcherId', pitchers.findOne);
+
+    //Get All Sessions by a Pitcher with pitcherID
+    app.get('/sessions/:pitcherId', pitchers.findSessionsById);
 }
