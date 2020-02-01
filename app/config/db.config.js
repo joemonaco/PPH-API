@@ -1,8 +1,7 @@
 //USE YOUR OWN PASSWORD HERE
 module.exports = {
-    HOST: 'localhost',
-    USER: 'root',
-    PASSWORD: 'devjoe123',
-    DB: 'mubaseball'
+  HOST: "localhost",
+  USER: "root",
+  PASSWORD: "Monmouth2020",
+  DB: "mubaseball"
 };
-
