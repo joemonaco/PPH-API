@@ -19,7 +19,7 @@ module.exports = app => {
   app.get("/sessions/all/chartData/:pitcherId", pitchers.getChartData);
 
   // Get Release and Movement AVERAGES for all data on a pitcher
-  app.get("/sessions/all/chartDataAvg/:pitcherId/", pitchers.getChartDataAvg);
+  app.get("/sessions/all/chartDataAvg/:pitcherId", pitchers.getChartDataAvg);
 
   // Get Release and Movement VALUES for a single session
   app.get("/sessions/one/chartData/:sessionID/", pitchers.getChartDataSession);

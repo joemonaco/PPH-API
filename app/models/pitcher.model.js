@@ -135,10 +135,7 @@ Pitcher.getChartDataAvg = (pitcherId, pitchType, result) => {
 
 Pitcher.getChartDataSession = (sessionID, pitchType, result) => {
   sql.query(
-    `SELECT verticalBreak, horizontalBreak, releaseHeight, releaseSide, Pitch_Type_pitchType
-    FROM captured_data
-    WHERE sessionID = ${sessionID}
-    ORDER BY Pitch_Type_pitchType ASC;`,
+    `SELECT verticalBreak, horizontalBreak, releaseHeight, releaseSide, Pitch_Type_pitchType FROM captured_data WHERE sessionID = ${sessionID} ORDER BY Pitch_Type_pitchType ASC;`,
     (err, res) => {
       if (err) {
         console.log("error", err);
