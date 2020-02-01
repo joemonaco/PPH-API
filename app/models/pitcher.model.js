@@ -63,7 +63,7 @@ Pitcher.getSessionsById = (pitcherId, result) => {
 
 Pitcher.getMaxAvgPitchType = (sessionID, pitchType, result) => {
   sql.query(
-    `select Pitch_Type_pitchType from captured_data where sessionID=${sessionID} group by Pitch_Type_pitchType;`,
+    `select AVG(speed), MAX(speed), Pitch_Type_pitchType from captured_data where sessionID=${sessionID} group by Pitch_Type_pitchType;`,
     (err, res) => {
       if (err) {
         console.log("error", err);
@@ -113,7 +113,7 @@ Pitcher.getChartDataAvg = (pitcherId, pitchType, result) => {
     `SELECT AVG(verticalBreak), AVG(horizontalBreak), AVG(releaseHeight), AVG(releaseSide), Pitch_Type_pitchType
     FROM captured_data
     WHERE Pitcher_pitcher_id = ${pitcherId}
-    ORDER BY Pitch_Type_pitchType ASC;`,
+    GROUP BY Pitch_Type_pitchType;`,
     (err, res) => {
       if (err) {
         console.log("error", err);
@@ -163,7 +163,7 @@ Pitcher.getChartDataSessionAvg = (sessionID, pitchType, result) => {
     `SELECT AVG(verticalBreak), AVG(horizontalBreak), AVG(releaseHeight), AVG(releaseSide), Pitch_Type_pitchType
     FROM captured_data
     WHERE sessionID = ${sessionID}
-    ORDER BY Pitch_Type_pitchType ASC;`,
+    GROUP BY Pitch_Type_pitchType`,
     (err, res) => {
       if (err) {
         console.log("error", err);
