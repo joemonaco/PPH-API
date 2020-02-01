@@ -83,22 +83,21 @@ Pitcher.getMaxAvgPitchType = (sessionID, pitchType, result) => {
   );
 };
 
-// Queries for release height and release side
-
-Pitcher.getRelease = (pitcherId, pitchType, result) => {
+Pitcher.getChartData = (pitcherId, pitchType, result) => {
   sql.query(
-    `SELECT releaseHeight, releaseSide, Pitch_Type_pitchType
-    FROM captured_data 
-    WHERE Pitcher_pitcher_id=${pitcherId};`,
+    `SELECT verticalBreak, horizontalBreak, releaseHeight, releaseSide, Pitch_Type_pitchType
+    FROM captured_data
+    WHERE Pitcher_pitcher_id = ${pitcherId}
+    ORDER BY Pitch_Type_pitchType ASC;`,
     (err, res) => {
       if (err) {
-        console.log("Error ", err);
+        console.log("error", err);
         result(err, null);
         return;
       }
 
       if (res.length) {
-        console.log("Found values: ", res);
+        console.log("Found Values: ", res);
         result(null, res);
         return;
       }
@@ -109,15 +108,12 @@ Pitcher.getRelease = (pitcherId, pitchType, result) => {
   );
 };
 
-Pitcher.getReleaseAvgs = (pitcherId, pitchType, result) => {
+Pitcher.getChartDataAvg = (pitcherId, pitchType, result) => {
   sql.query(
-    `select AVG(releaseHeight), AVG(releaseSide), Pitch_Type_pitchType
-  from captured_data 
-  where Pitcher_pitcher_id=${pitcherId} 
-  group by Pitch_Type_pitchType;`,
+    `SELECT AVG(verticalBreak), AVG(horizontalBreak), AVG(releaseHeight), AVG(releaseSide), Pitch_Type_pitchType FROM captured_data WHERE Pitcher_pitcher_id = ${pitcherId} ORDER BY Pitch_Type_pitchType ASC;`,
     (err, res) => {
       if (err) {
-        console.log("Error ", err);
+        console.log("error", err);
         result(err, null);
         return;
       }
@@ -134,20 +130,18 @@ Pitcher.getReleaseAvgs = (pitcherId, pitchType, result) => {
   );
 };
 
-Pitcher.getReleaseSession = (sessionID, pitchType, result) => {
+Pitcher.getChartDataSession = (sessionID, pitchType, result) => {
   sql.query(
-    `SELECT releaseHeight, releaseSide, Pitch_Type_pitchType
-    FROM captured_data 
-    WHERE sessionID = ${sessionID};`,
+    `SELECT verticalBreak, horizontalBreak, releaseHeight, releaseSide, Pitch_Type_pitchType FROM captured_data WHERE sessionID = ${sessionID} ORDER BY Pitch_Type_pitchType ASC;`,
     (err, res) => {
       if (err) {
-        console.log("Error ", err);
+        console.log("error", err);
         result(err, null);
         return;
       }
 
       if (res.length) {
-        console.log("Found Values for session ${sessionID}: ", res);
+        console.log("Found Values: ", res);
         result(null, res);
         return;
       }
@@ -158,121 +152,18 @@ Pitcher.getReleaseSession = (sessionID, pitchType, result) => {
   );
 };
 
-Pitcher.getReleaseAvgsSession = (sessionID, pitchType, result) => {
+Pitcher.getChartDataSessionAvg = (sessionID, pitchType, result) => {
   sql.query(
-    `SELECT AVG(releaseHeight), AVG(releaseSide), Pitch_Type_pitchType
-    FROM captured_data 
-    WHERE sessionID = ${sessionID}
-    GROUP BY Pitch_Type_pitchType;`,
+    `SELECT AVG(verticalBreak), AVG(horizontalBreak), AVG(releaseHeight), AVG(releaseSide), Pitch_Type_pitchType FROM captured_data WHERE sessionID = ${sessionID} ORDER BY Pitch_Type_pitchType ASC;`,
     (err, res) => {
       if (err) {
-        console.log("Error ", err);
-        result(err, null);
-        return;
-      }
-
-      if (res.length) {
-        console.log("Found Averages for session ${sessionID}: ", res);
-        result(null, res);
-        return;
-      }
-
-      //not found
-      result({ kind: "not_found" }, null);
-    }
-  );
-};
-
-// Queries for vertical and horizontal break
-
-Pitcher.getMovement = (pitcherId, pitchType, result) => {
-  sql.query(
-    `SELECT verticalBreak, horizontalBreak, Pitch_Type_pitchType
-    FROM captured_data 
-    WHERE Pitcher_pitcher_id=${pitcherId};`,
-    (err, res) => {
-      if (err) {
-        console.log("Error ", err);
-        result(err, null);
-        return;
-      }
-
-      if (res.length) {
-        console.log("Found values: ", res);
-        result(null, res);
-        return;
-      }
-
-      //not found
-      result({ kind: "not_found" }, null);
-    }
-  );
-};
-
-Pitcher.getMovementAvgs = (pitcherId, pitchType, result) => {
-  sql.query(
-    `select AVG(verticalBreak), AVG(horizontalBreak), Pitch_Type_pitchType
-  from captured_data 
-  where Pitcher_pitcher_id=${pitcherId} 
-  group by Pitch_Type_pitchType;`,
-    (err, res) => {
-      if (err) {
-        console.log("Error ", err);
+        console.log("error", err);
         result(err, null);
         return;
       }
 
       if (res.length) {
         console.log("Found Averages: ", res);
-        result(null, res);
-        return;
-      }
-
-      //not found
-      result({ kind: "not_found" }, null);
-    }
-  );
-};
-
-Pitcher.getMovementSession = (sessionID, pitchType, result) => {
-  sql.query(
-    `SELECT verticalBreak, horizontalBreak, Pitch_Type_pitchType
-    FROM captured_data 
-    WHERE sessionID = ${sessionID};`,
-    (err, res) => {
-      if (err) {
-        console.log("Error ", err);
-        result(err, null);
-        return;
-      }
-
-      if (res.length) {
-        console.log("Found Values for session ${sessionID}: ", res);
-        result(null, res);
-        return;
-      }
-
-      //not found
-      result({ kind: "not_found" }, null);
-    }
-  );
-};
-
-Pitcher.getMovementAvgsSession = (sessionID, pitchType, result) => {
-  sql.query(
-    `SELECT AVG(verticalBreak), AVG(horizontalBreak), Pitch_Type_pitchType
-    FROM captured_data 
-    WHERE sessionID = ${sessionID}
-    GROUP BY Pitch_Type_pitchType;`,
-    (err, res) => {
-      if (err) {
-        console.log("Error ", err);
-        result(err, null);
-        return;
-      }
-
-      if (res.length) {
-        console.log("Found Averages for session ${sessionID}: ", res);
         result(null, res);
         return;
       }

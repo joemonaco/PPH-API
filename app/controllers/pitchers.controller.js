@@ -66,55 +66,15 @@ exports.getMaxAvgPitchType = (req, res) => {
   );
 };
 
-exports.getRelease = (req, res) => {
-  Pitcher.getRelease(
+exports.getChartData = (req, res) => {
+  Pitcher.getChartData(
     req.params.pitcherId,
     req.params.pitchType,
     (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found values for pitcher ${req.params.pitcherId}. or pitch type ${req.params.pitchType}`
-          });
-        } else {
-          res.status(500).send({
-            message: "Error retrieving  with PitcherId " + req.params.pitcherId
-          });
-        }
-      } else res.send(data);
-    }
-  );
-};
-
-exports.getReleaseAvgs = (req, res) => {
-  Pitcher.getReleaseAvgs(
-    req.params.pitcherId,
-    req.params.pitchType,
-    (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `Not found Averages for pitcher ${req.params.pitcherId}. or pitch type ${req.params.pitchType}`
-          });
-        } else {
-          res.status(500).send({
-            message: "Error retrieving  with PitcherId " + req.params.pitcherId
-          });
-        }
-      } else res.send(data);
-    }
-  );
-};
-
-exports.getReleaseSession = (req, res) => {
-  Pitcher.getReleaseSession(
-    req.params.sessionID,
-    req.params.pitchType,
-    (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `Not found Session with ${req.params.sessionID}. or pitch type ${req.params.pitchType}`
+            message: `Not found Values with pitcher ${req.params.pitcherId}. or pitch type ${req.params.pitchType}`
           });
         } else {
           res.status(500).send({
@@ -127,76 +87,15 @@ exports.getReleaseSession = (req, res) => {
   );
 };
 
-exports.getReleaseAvgsSession = (req, res) => {
-  Pitcher.getReleaseAvgsSession(
-    req.params.sessionID,
-    req.params.pitchType,
-    (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `Not found Session with ${req.params.sessionID}. or pitch type ${req.params.pitchType}`
-          });
-        } else {
-          res.status(500).send({
-            message:
-              "Error retrieving Session with PitcherId " + req.params.pitcherId
-          });
-        }
-      } else res.send(data);
-    }
-  );
-};
-
-exports.getMovement = (req, res) => {
-  Pitcher.getMovement(
+exports.getChartDataAvg = (req, res) => {
+  Pitcher.getChartDataAvg(
     req.params.pitcherId,
     req.params.pitchType,
     (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found values for pitcher ${req.params.pitcherId}. or pitch type ${req.params.pitchType}`
-          });
-        } else {
-          res.status(500).send({
-            message: "Error retrieving  with PitcherId " + req.params.pitcherId
-          });
-        }
-      } else res.send(data);
-    }
-  );
-};
-
-exports.getMovementAvgs = (req, res) => {
-  Pitcher.getMovementAvgs(
-    req.params.pitcherId,
-    req.params.pitchType,
-    (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `Not found Averages for pitcher ${req.params.pitcherId}. or pitch type ${req.params.pitchType}`
-          });
-        } else {
-          res.status(500).send({
-            message: "Error retrieving  with PitcherId " + req.params.pitcherId
-          });
-        }
-      } else res.send(data);
-    }
-  );
-};
-
-exports.getMovementSession = (req, res) => {
-  Pitcher.getMovementSession(
-    req.params.sessionID,
-    req.params.pitchType,
-    (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `Not found Session with ${req.params.sessionID}. or pitch type ${req.params.pitchType}`
+            message: `Not found Values with pitcher ${req.params.pitcherId}. or pitch type ${req.params.pitchType}`
           });
         } else {
           res.status(500).send({
@@ -209,20 +108,39 @@ exports.getMovementSession = (req, res) => {
   );
 };
 
-exports.getMovementAvgsSession = (req, res) => {
-  Pitcher.getMovementAvgsSession(
+exports.getChartDataSession = (req, res) => {
+  Pitcher.getChartDataSession(
     req.params.sessionID,
     req.params.pitchType,
     (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found Session with ${req.params.sessionID}. or pitch type ${req.params.pitchType}`
+            message: `Not found Values with session ${req.params.sessionID}. or pitch type ${req.params.pitchType}`
           });
         } else {
           res.status(500).send({
-            message:
-              "Error retrieving Session with PitcherId " + req.params.pitcherId
+            message: "Error retrieving Session with " + req.params.sessionID
+          });
+        }
+      } else res.send(data);
+    }
+  );
+};
+
+exports.getChartDataSessionAvg = (req, res) => {
+  Pitcher.getChartDataSessionAvg(
+    req.params.sessionID,
+    req.params.pitchType,
+    (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found Values with session ${req.params.sessionID}. or pitch type ${req.params.pitchType}`
+          });
+        } else {
+          res.status(500).send({
+            message: "Error retrieving Session with " + req.params.sessionID
           });
         }
       } else res.send(data);

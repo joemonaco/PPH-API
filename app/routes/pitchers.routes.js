@@ -13,31 +13,20 @@ module.exports = app => {
   //Get max and average velocity for a single session
   app.get("/MaxAvg/one/:sessionID/:pitchType", pitchers.getMaxAvgPitchType);
 
-  //Release Routes
+  // Release and Movement routes
 
-  //Get Release values for all sessions of a pitcher with pitchtypes
-  app.get("/release/all/:pitcherId/", pitchers.getRelease);
+  // Get Release and Movement VALUES for all data on a pitcher
+  app.get("/sessions/all/chartData/:pitcherId", pitchers.getChartData);
 
-  //Get Release averages for all sessions of a pitcher grouped by pitchtype
-  app.get("/releaseAvgs/all/:pitcherId/", pitchers.getReleaseAvgs);
+  // Get Release and Movement AVERAGES for all data on a pitcher
+  app.get("/sessions/all/chartDataAvg/:pitcherId", pitchers.getChartDataAvg);
 
-  //Get Release values for a single session with pitchtypes
-  app.get("/release/one/:sessionID/", pitchers.getReleaseSession);
+  // Get Release and Movement VALUES for a single session
+  app.get("/sessions/one/chartData/:sessionID/", pitchers.getChartDataSession);
 
-  //Get Release averages for a single session of with pitchtypes
-  app.get("/releaseAvgs/one/:sessionID/", pitchers.getReleaseAvgsSession);
-
-  //Movement Routes
-
-  //Get Movement values for all sessions of a pitcher with pitchtypes
-  app.get("/movement/all/:pitcherId/", pitchers.getMovement);
-
-  //Get Movement averages for all sessions of a pitcher grouped by pitchtype
-  app.get("/movementAvgs/all/:pitcherId/", pitchers.getMovementAvgs);
-
-  //Get Movement values for a single session with pitchtypes
-  app.get("/movement/one/:sessionID/", pitchers.getMovementSession);
-
-  //Get Movement averages for a single session of with pitchtypes
-  app.get("/movementAvgs/one/:sessionID/", pitchers.getMovementAvgsSession);
+  // // Get Release and Movement AVERAGES for a single session
+  app.get(
+    "/sessions/one/chartDataAvg/:sessionID/",
+    pitchers.getChartDataSessionAvg
+  );
 };
