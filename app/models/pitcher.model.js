@@ -82,6 +82,29 @@ Pitcher.getMaxAvgPitchType = (sessionID, pitchType, result) => {
     }
   );
 };
+
+Pitcher.getMaxAvg = (pitcherId, pitchType, result) => {
+  sql.query(
+    `select AVG(speed), MAX(speed), Pitch_Type_pitchType from captured_data where Pitcher_pitcher_id=${pitcherId} group by Pitch_Type_pitchType;`,
+    (err, res) => {
+      if (err) {
+        console.log("error", err);
+        result(err, null);
+        return;
+      }
+
+      if (res.length) {
+        console.log("found AVG and MAX: ", res);
+        result(null, res);
+        return;
+      }
+
+      //not found
+      result({ kind: "not_found" }, null);
+    }
+  );
+};
+
 Pitcher.getSessionData = (sessionID, result) => {
   sql.query(
     `select Pitch_Type_pitchType, releaseSide, releaseHeight, horizontalBreak, verticalBreak, spin, trueSpin, szx, szy, speed, spinConfidence, spinEfficiency, launchAngle, rifleSpin, horizontalAngle, gyroDegree from captured_data where sessionID=${sessionID};`,

@@ -58,31 +58,46 @@ exports.getMaxAvgPitchType = (req, res) => {
         } else {
           res.status(500).send({
             message:
-              "Error retrieving Session with PitcherId " + req.params.pitcherId
+              "Error retrieving Session with sessionID " + req.params.sessionID
           });
         }
       } else res.send(data);
     }
   );
 };
+
+exports.getMaxAvg = (req, res) => {
+  Pitcher.getMaxAvg(req.params.pitcherId, req.params.pitchType, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Session with ${req.params.pitcherId}. or pitch type ${req.params.pitchType}`
+        });
+      } else {
+        res.status(500).send({
+          message:
+            "Error retrieving Session with PitcherId " + req.params.pitcherId
+        });
+      }
+    } else res.send(data);
+  });
+};
+
 exports.getSessionData = (req, res) => {
-  Pitcher.getSessionData(
-    req.params.sessionID,
-    (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `Not found Session with ${req.params.sessionID}`
-          });
-        } else {
-          res.status(500).send({
-            message:
-              "Error retrieving Session with PitcherId " + req.params.pitcherId
-          });
-        }
-      } else res.send(data);
-    }
-  );
+  Pitcher.getSessionData(req.params.sessionID, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Session with ${req.params.sessionID}`
+        });
+      } else {
+        res.status(500).send({
+          message:
+            "Error retrieving Session with PitcherId " + req.params.pitcherId
+        });
+      }
+    } else res.send(data);
+  });
 };
 
 exports.getChartData = (req, res) => {

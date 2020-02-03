@@ -13,6 +13,9 @@ module.exports = app => {
   //Get max and average velocity for a single session
   app.get("/MaxAvg/one/:sessionID/:pitchType", pitchers.getMaxAvgPitchType);
 
+  //Get max and avg velocity for all sessions
+  app.get("/MaxAvg/all/:pitcherId", pitchers.getMaxAvg);
+
   //Get all data for selected session
   app.get("/session/:sessionID", pitchers.getSessionData);
 
