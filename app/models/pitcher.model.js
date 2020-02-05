@@ -8,7 +8,7 @@ const Pitcher = function(pitcher) {
 };
 
 Pitcher.getAll = result => {
-  sql.query("SELECT * FROM pitcher", (err, res) => {
+  sql.query("SELECT * FROM pitcher order by _id", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -85,7 +85,7 @@ Pitcher.getMaxAvgPitchType = (sessionID, pitchType, result) => {
 
 Pitcher.getMaxAvg = (pitcherId, pitchType, result) => {
   sql.query(
-    `select AVG(speed), MAX(speed), Pitch_Type_pitchType from captured_data where Pitcher_pitcher_id=${pitcherId} group by Pitch_Type_pitchType;`,
+    `select Pitcher_pitcher_id, AVG(speed), MAX(speed), Pitch_Type_pitchType from captured_data group by Pitch_Type_pitchType, Pitcher_pitcher_id order by Pitcher_pitcher_id;`,
     (err, res) => {
       if (err) {
         console.log("error", err);
