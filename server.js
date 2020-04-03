@@ -28,13 +28,9 @@ app.get('/', (req, res) => {
     res.json({message: "Welcome to the Application"});
 });
 
-https.createServer({
-    key: fs.readFileSync('csse.monmouth.edu.key'),
-    cert: fs.readFileSync('c924370ddad012a6.crt')
-}, app)
-.listen(3000, ()=> {
+app.listen(3000, ()=> {
     console.log("Server is running on port 3000.");
 });
 
-require("./app/routes/pitchers.routes.js")(app);
+require("./app/routes/user.routes.js")(app);
 

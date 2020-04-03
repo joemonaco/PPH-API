@@ -1,10 +1,11 @@
 {
-  "name": "mubaseball-api",
+  "name": "Project-Plan-Hub-API",
   "version": "1.0.0",
-  "description": "API for MUBaseball Pitch Plus",
+  "description": "API for Project Plan Hub",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "node server.js"
   },
   "keywords": [
     "nodejs",
